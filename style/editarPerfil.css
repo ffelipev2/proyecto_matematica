@@ -1,0 +1,13 @@
+@media (min-width: 768px)
+.navbar-nav>li>a {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 0px;
+}
+.icono-salir{
+	float: left;
+}

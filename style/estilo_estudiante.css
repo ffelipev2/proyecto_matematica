@@ -1,0 +1,107 @@
+@font-face {
+  font-family: "Segoe UI";
+  src: url("../fonts/segoe-ui.otf");
+}
+
+
+body{
+	font-family: "Segoe UI", normal;
+}
+
+nav{
+background-color: #404E67;	
+}
+nav a{
+	color: #f0f0f0;
+	font-size: 1.2em;	
+}
+.icono-menu {
+	font-size: 1.5em;
+	padding-right: 50px;
+	color: #f0f0f0;
+}
+.tamanio{
+    font-size:18px;
+}
+
+aside { 
+	border-top: 1px solid #DEE2E6;
+	
+ 
+ }
+.baner-isquierdo{
+	padding-top: 30px;
+	border-right: 1px solid #DEE2E6;
+	background-color: #F8F9FA;
+}
+.perfil{
+ 	border-bottom: 1px solid #DEE2E6;
+ 	padding-bottom: 50px;
+ }
+.perfil img{
+	border-radius:50%;
+	float:left;
+	margin-right: 10px;
+	height: 150px;
+	width: 150px;
+}
+.perfil .descripcion{
+	padding-top: 50px;
+}
+.menu-baner{
+	padding-top: 30px;
+}
+.menu-baner button{
+	background-color: #404E67;
+	margin-bottom: 8px;
+	border: 3px solid #404E67;
+	color: #f0f0f0;
+	font-weight: bold;
+
+}
+.anuncios{
+	padding-top: 30px;
+	text-align: center;
+	border-right: 1px solid #DEE2E6;
+	background-color: #F8F9FA;
+}
+.redes-sociales{
+	text-align: center;
+	padding-top: 30px;
+	background-color: #F8F9FA;
+}
+.list-group-item-action{
+	background-color: #404E67;
+}
+
+/*Iconos*/
+
+.icono-salir{
+font-size: 1em;
+padding-right: 50px;
+color: #f0f0f0;
+}
+.salir{
+padding-left: 5px;
+}
+
+.icono-mod-perfil{
+font-size: 1em;
+padding-right: 50px;
+color: #404E67;
+}
+.cargar-imagen{
+	margin-top: 15px;
+}
+.perfil-container{
+	padding-top: 50px;
+}
+
+.imagen-perfil img{
+	border-radius:5%;
+	height: 280px;
+	width: 255px;
+}
+.titulo-editar{
+	margin-bottom: 50px;
+}
