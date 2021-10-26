@@ -6,16 +6,16 @@ if (isset($_POST['submit'])) {
 
     if (!isset($_POST['userName']))
         $error[] = "Por favor rellene el rut";
-    
+
     if (!isset($_POST['name']))
         $error[] = "Por favor rellene el nombre";
-    
+
     if (!isset($_POST['lastName']))
         $error[] = "Por favor rellene el appelido";
-    
+
     if (!isset($_POST['email']))
         $error[] = "Por favor rellene el Email";
-    
+
     if (!isset($_POST['password']))
         $error[] = "Por favor rellene todos los campos";
 
@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     $school = $_POST['school'];
     $course = $_POST['course'];
     $rol = "alumno";
-    
+
 
     //very basic validation
     if (!$user->isValidUsername($userName)) {
@@ -199,7 +199,7 @@ $title = 'Login y registro PDO';
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <select class="form-control input-lg" name ="school" id="colegio" tabindex="6" required>
-                                         <option selected="true" disabled>Colegio</option>
+                                        <option selected="true" disabled>Colegio</option>
                                         <option value="EPDSJ">El Patrocinio De San José</option>
                                         <option value="BC">Bernadette College</option>
                                     </select>
@@ -230,10 +230,12 @@ $title = 'Login y registro PDO';
                                 </div>
                             </div>
                         </div>
-
+                        </br>
                         <div class="row">
                             <div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Registrarme" class="btn btn-primary btn-block btn-lg" tabindex="5"></div>
                         </div>
+                        </br>
+                        </br>
                     </form>
                 </div>
             </div>
