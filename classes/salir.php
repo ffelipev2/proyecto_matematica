@@ -6,6 +6,6 @@ Redirigir el flujo a la pagina del login -->
 if ($_GET['sal']=='si') {
 	session_start(); 
 	session_destroy(); 
-	header("Location:../index.php");	
+	header("Location:../index.html");	
 }
 ?>

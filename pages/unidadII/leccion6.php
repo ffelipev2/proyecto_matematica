@@ -209,8 +209,14 @@ if (isset($_POST['enviar'])) {
                                         </div>
                                     </div>
                                     </br></br>     
-
                                 </div>
+                                <?php
+                                if ($_SESSION['userName'] != '') {
+                                    echo ' <button type="submit" name ="enviar" value= "unidad2_leccion6" class="btn btn-outline-primary">Enviar</button>';
+                                } else {
+                                    echo ' <a href="../../login.php" class="btn btn-outline-primary">Enviar</a>';
+                                }
+                                ?>
                             </form>
                         </div>
                     </div>

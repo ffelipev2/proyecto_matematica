@@ -1,4 +1,30 @@
 <!DOCTYPE html>
+<?php
+error_reporting(0);
+require_once('../../classes/config.php');
+/*
+  if ($_SESSION['rol'] == '') {
+  session_destroy();
+  header("Location:../index.php");
+  }
+ */
+if (isset($_POST['enviar'])) {
+    $variableUL = $_POST['enviar'];
+    $p1 = $_POST['pregunta1'];
+    $p2 = $_POST['pregunta2'];
+    $p3 = $_POST['pregunta3'];
+    $p4 = $_POST['pregunta4'];
+    $p5 = $_POST['pregunta5'];
+    $variable = explode("_", $variableUL);
+    $unidad = $variable[0];
+    $leccion = $variable[1];
+    if ($user->guardarDatos($unidad, $leccion, $p1, $p2, $p3, $p4, $p5) == 1) {
+        echo '<script> alert("Se han actualizado las respuestas"); </script>';
+    } else {
+        echo '<script> alert("Se han ingresado las respuestas"); </script>';
+    }
+}
+?>
 <html>
     <head>
         <title>Lección 07 Distribución Binomial</title>
@@ -10,8 +36,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-        <link href="../../../pages/admin/css/estrellas.css" rel="stylesheet" type="text/css"/>
-        <link href="../../../css/miestiloNavbar.css" rel="stylesheet" type="text/css"/>
+        <link href="../../pages/admin/css/estrellas.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/miestiloNavbar.css" rel="stylesheet" type="text/css"/>
 
         <style>
             .bs-example{
@@ -52,17 +78,20 @@
                 cursor: wait;
             }
         </style>
-
     </head>
-
     <body style ="background-color: #FFFFFF;">
         <?php
-        include '../../../mod/headerMat.html';
+        if ($_SESSION['rol'] == 'alumno') {
+            include '../mod/headerMat.html';
+        } elseif ($_SESSION['rol'] == 'docente') {
+            include '../mod/headerMat_1.html';
+        } else {
+            include '../mod/headerMat_2.html';
+        }
         ?>
-
         <div class="container border p-0">
             <div class="card-header collapsed border border-light" data-toggle="collapse" data-parent="#accordion" href="#collapseCuatro"  style ="background-color: #0EB8F6;">
-                <a class="card-title"><img src="../../../images/icono1_leccion1.png" class="img-fluid" width="70px" alt="70px"> LECCIÓN 05: <strong>Activación de Conocimientos Previos</strong></a>
+                <a class="card-title"><img src="../../images/icono1_leccion1.png" class="img-fluid" width="70px" alt="70px"> LECCIÓN 05: <strong>Activación de Conocimientos Previos</strong></a>
             </div>
         </div>
         <div class="container border p-0">
@@ -151,8 +180,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1"> <p>1.- Indique dos características de la distribución binomial</p></label>
                                         <textarea class="form-control" id="exampleFormControlTextarea1" name="pregunta1" rows="3" required placeholder="Escribe tu respuesta aquí"></textarea>
@@ -184,72 +211,20 @@
                                             <input type="radio" id="star1" name="pregunta5" value="1" /><label for="star1" title="Pésimo" value="1">1 estrellas</label>
                                         </div>
                                     </div>
-
-                                    </br></br></br>
-                                    <div class="form-group">
-                                        <div class="card" style ="background-color: #0EB8F6;">
-                                            <div align="center" class="card-body">
-                                                <h5>Completa con tus datos &nbsp;</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </br>
-                                    <div class="form-group">
-                                        <label for="apellido">Rut</label>
-                                        <input type="text" class="form-control" id="rut" name="rut" required oninput="checkRut(this)" placeholder="Ingresa tu rut">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="nombre">Nombre</label>
-                                        <input type="text" class="form-control" id="nombre" name ="nombre" placeholder="Ingresa tu nombre" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="apellido">Apellido</label>
-                                        <input type="text" class="form-control" id="apellido" name= "apellido" placeholder="Ingresa tu apellido" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="apellido">Correo</label>
-                                        <input type="email" class="form-control" id="apellido" name= "correo" placeholder="Ingresa tu correo" required>
-                                    </div>
+                                    </br>                                   
                                     <?php
-                                    include '../../../mod/colegios.html';
-                                    include '../../../mod/cursos.html';
+                                    if ($_SESSION['userName'] != '') {
+                                        echo ' <button type="submit" name ="enviar" value= "unidad2_leccion7" class="btn btn-outline-primary">Enviar</button>';
+                                    } else {
+                                        echo ' <a href="../../login.php" class="btn btn-outline-primary">Enviar</a>';
+                                    }
                                     ?>
-                                    </br> </br>
-                                    <button type="submit" name ="enviar" value= "unidad1" class="btn btn-outline-primary">Enviar</button>
-                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        </br>
-        <?php
-        require_once "../../../resources/funciones.php";
-        $conn = new ConneccionMySQL();
-        $conn->Crearconexion();
-        //echo date("H:i:s");
-        //echo date("Y-m-d");
-        if (isset($_POST['enviar'])) {
-            if ($_POST['enviar'] == 'unidad1') {
-                /*
-                  echo $_POST['rut'];
-                  echo $_POST['nombre'];
-                  echo $_POST['apellido'];
-                  echo $_POST['pregunta1'];
-                  echo $_POST['pregunta2'];
-                  echo $_POST['pregunta3'];
-                  echo $_POST['pregunta4'];
-                  echo $_POST['colegio'];
-                  echo $_POST['curso'];
-                 */
-                $tabla = "unidad1leccion5";
-                $leccion = "5";
-                $conn->insertar_datos_actividad($tabla, $leccion);
-            }
-        }
-        $conn->Cerrarconexion();
-        ?>
     </body>
     <script src="../../../assets/js/scripts.js" type="text/javascript"></script>
     <script src="../../../js/codigoNavbar.js" type="text/javascript"></script>

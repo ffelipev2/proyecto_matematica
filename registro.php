@@ -199,19 +199,16 @@ $title = 'Login y registro PDO';
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <select class="form-control input-lg" name ="school" id="colegio" tabindex="6" required>
-                                         <option value="">Colegio</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
+                                         <option selected="true" disabled>Colegio</option>
+                                        <option value="EPDSJ">El Patrocinio De San José</option>
+                                        <option value="BC">Bernadette College</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-xs-6 col-sm-6 col-md-6">
                                     <select class="form-control input-lg" name = "course" id="course" tabindex="6" required>
-                                         <option value="">Curso</option>
+                                        <option value="" selected="true" disabled>Curso</option>
                                         <option value="A">4° A</option>
                                         <option value="B">4° B</option>
                                         <option value="C">4° C</option>
