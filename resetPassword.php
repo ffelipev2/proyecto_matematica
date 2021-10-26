@@ -1,9 +1,10 @@
 <?php
+error_reporting(0);
 require('classes/config.php');
 
 //if logged in redirect to members page
 if ($user->is_logged_in()) {
-    header('Location: index.php');
+    header('Location: login.php');
     exit();
 }
 

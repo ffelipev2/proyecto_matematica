@@ -8,12 +8,12 @@ define('DBHOST', 'localhost');
 define('DBUSER', 'root');
 define('DBPASS', '');
 define('DBNAME', 'mi_db');
-
 /*
   define('DBHOST', '201.148.104.42');
   define('DBUSER', 'titanxcl_felipe');
   define('DBPASS', 'arduino123456');
   define('DBNAME', 'titanxcl_loginphp');
+
 
  */
 //aplication address

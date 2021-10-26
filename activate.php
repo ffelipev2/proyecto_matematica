@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require('classes/config.php');
 
 //collect values from the url
@@ -19,7 +20,7 @@ if(!empty($active)){
 	if($stmt->rowCount() == 1){
 
 		//redirect to login page
-		header('Location: index.php?action=active');
+		header('Location: login.php?action=active');
 		exit;
 
 	} else {

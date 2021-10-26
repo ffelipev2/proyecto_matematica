@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require('classes/config.php');
 
 //Verifica si el formulario ha sido enviado correctamente
