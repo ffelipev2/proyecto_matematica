@@ -109,15 +109,13 @@ if (isset($_POST['enviar'])) {
                 <div class="card mb-0">
                     <!-- CONTENIDO -->
                     <div class="card-header collapsed border border-light" data-toggle="collapse" data-parent="#accordion" href="#collapseContenido"  style ="background-color: #0EB8F6;">
-                        <a class="card-title"><img src="../../img/icono2_simulación.png" class="img-fluid" width="70px" alt="70px"> <strong>Conceptualización</strong> </a>
+                        <a class="card-title"><img src="../../img/icono2_simulacion.png" class="img-fluid" width="70px" alt="70px"> <strong>Conceptualización</strong> </a>
                     </div>
                     <div id="collapseContenido" class="collapse" data-parent="#accordion">
                         <div class="card-body">
                             <div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;">
-
                                     <iframe frameborder="0" width="1200px" height="675px" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genial.ly/5f7ccc72ea600f0d09d47f3e" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all">
                                     </iframe>
-
                                 </div> 
                             </div>
                         </div>
