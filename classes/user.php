@@ -45,15 +45,14 @@ class User extends Password {
 
             $_SESSION['loggedin'] = true;
             $_SESSION['userName'] = $row['userName'];
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['lastName'] = $row['lastName'];
-            $_SESSION['school'] = $row['school'];
-            $_SESSION['course'] = $row['course'];
-            $_SESSION['rol'] = $row['rol'];
+            $_SESSION['name1'] = $row['name1'];
+            $_SESSION['lastName1'] = $row['lastName1'];
+            $_SESSION['school'] = $row['codSchool'];
+            $_SESSION['course'] = $row['codCourse'];
+            $_SESSION['rol'] = $row['codRol'];
             return true;
         }
     }
-
     public function logout() {
         session_destroy();
     }
