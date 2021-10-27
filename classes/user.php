@@ -27,29 +27,22 @@ class User extends Password {
     public function isValidUsername($userName) {
         if (strlen($userName) < 3)
             return false;
-        if (strlen($userName) > 17)
+        if (strlen($userName) > 20)
             return false;
 //if (!ctype_alnum($userName)) return false;
         return true;
     }
 
     public function login($userName, $password) {
-        if (!$this->isValidUsername($userName))
-            return false;
-        if (strlen($password) < 3)
-            return false;
-
         $row = $this->get_user_hash($userName);
-
         if ($this->password_verify($password, $row['password']) == 1) {
-
             $_SESSION['loggedin'] = true;
             $_SESSION['userName'] = $row['userName'];
-            $_SESSION['name1'] = $row['name1'];
-            $_SESSION['lastName1'] = $row['lastName1'];
-            $_SESSION['school'] = $row['codSchool'];
+            $_SESSION['name'] = $row['name'];
+            $_SESSION['lastName'] = $row['lastName'];
+            $_SESSION['school'] = $row['school'];
             $_SESSION['course'] = $row['codCourse'];
-            $_SESSION['rol'] = $row['codRol'];
+            $_SESSION['rol'] = $row['rol'];
             return true;
         }
     }
