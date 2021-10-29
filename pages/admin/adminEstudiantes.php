@@ -14,12 +14,10 @@ if ($_SESSION['var']){
     $data = $stmt->fetchAll();
     unset($_SESSION['var']);
 }
-
 if (isset($_POST['enviar'])) {
     $count = count($_POST["id"]);
     $comentario = $_POST['comment'];
     echo 'La variable es: ' . $count;
-
     for ($i = 0; $i < $count; $i++) {
         $stmt = $db->prepare("UPDATE lecciones SET calification=:calificacion , comment = :comentario WHERE id = :id");
         $stmt->execute(array('calificacion' => $_POST['calification'][$i], 'comentario' => $_POST['comment'][$i], 'id' => $_POST['id'][$i]));
