@@ -80,15 +80,15 @@ if (isset($_POST['enviar'])) {
         </style>
     </head>
     <body style ="background-color: #FFFFFF;">
-        <?php
-        if ($_SESSION['rol'] == 'alumno') {
-            include '../mod/headerMat.html';
-        } elseif ($_SESSION['rol'] == 'docente') {
-            include '../mod/headerMat_1.html';
-        } else {
-            include '../mod/headerMat_2.html';
-        }
-        ?>
+    <?php
+    if ($_SESSION['rol'] == 'alumno') {
+        include '../mod/headerMat.php';
+    } elseif ($_SESSION['rol'] == 'docente') {
+        include '../mod/headerMat_1.php';
+    } else {
+        include '../mod/headerMat_2.php';
+    }
+    ?>
         <div class="container border p-0">
             <div class="card-header collapsed border border-light" data-toggle="collapse" data-parent="#accordion" href="#collapseCuatro"  style ="background-color: #0EB8F6;">
                 <a class="card-title"><img src="../../images/icono1_leccion1.png" class="img-fluid" width="70px" alt="70px"> LECCIÓN 05: <strong>Activación de Conocimientos Previos</strong></a>

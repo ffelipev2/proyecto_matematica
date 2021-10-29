@@ -6,22 +6,25 @@ if ($_SESSION['rol'] != 'docente') {
     session_destroy();
     header("Location:../../index.php");
 }
-$colegio = $_SESSION['school'];
 
-$stmt = $db->prepare("SELECT * FROM lecciones WHERE school = :colegio AND rol = :rol");
-$stmt->execute(array('colegio' => $colegio, 'rol' => "alumno"));
-$data = $stmt->fetchAll();
 
 if (isset($_POST['enviar'])) {
     $count = count($_POST["id"]);
     $comentario = $_POST['comment'];
-    echo 'La variable es: '.$count;
+    echo 'La variable es: ' . $count;
 
     for ($i = 0; $i < $count; $i++) {
         $stmt = $db->prepare("UPDATE lecciones SET calification=:calificacion , comment = :comentario WHERE id = :id");
         $stmt->execute(array('calificacion' => $_POST['calification'][$i], 'comentario' => $_POST['comment'][$i], 'id' => $_POST['id'][$i]));
     }
     header("Location: adminEstudiantes.php");
+}
+if (isset($_POST['curso'])) {
+    $colegio = $_SESSION['school'];
+    $curso = $_POST['curso'];
+    $stmt = $db->prepare("SELECT * FROM lecciones WHERE school = :colegio AND rol = :rol AND course =:curso");
+    $stmt->execute(array('colegio' => $colegio, 'rol' => "alumno", 'curso' => $curso));
+    $data = $stmt->fetchAll();
 }
 ?>
 
@@ -66,7 +69,22 @@ if (isset($_POST['enviar'])) {
         </div>
     </div>
     </br>
-
+    <form action="" method="POST">
+        <div class="form-group">
+            <div class="col-md-4 offset-md-4">
+                <select class="form-control input-lg" tabindex="6" onchange="this.form.submit();" name="curso">
+                    <option value="" selected="true" disabled>Selecciona el Curso</option>
+                    <option value="A">4° A</option>
+                    <option value="B">4° B</option>
+                    <option value="C">4° C</option>
+                    <option value="D">4° D</option>
+                    <option value="MEDIO">4° MEDIO</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    </br>
+    </br>
     <body style ="background-color: #FFFFFF;">      
         <form method="post" action="adminEstudiantes.php">
             <table id="mi_tabla"  class="table table-striped table-bordered nowrap" cellspacing="0" style="width:100%">
