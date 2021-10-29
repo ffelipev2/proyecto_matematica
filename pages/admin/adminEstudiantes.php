@@ -6,7 +6,14 @@ if ($_SESSION['rol'] != 'docente') {
     session_destroy();
     header("Location:../../index.php");
 }
-
+if ($_SESSION['var']){
+    $colegio = $_SESSION['school'];
+    $curso =  $_SESSION['curso'];
+    $stmt = $db->prepare("SELECT * FROM lecciones WHERE school = :colegio AND rol = :rol AND course =:curso");
+    $stmt->execute(array('colegio' => $colegio, 'rol' => "alumno", 'curso' => $curso));
+    $data = $stmt->fetchAll();
+    unset($_SESSION['var']);
+}
 
 if (isset($_POST['enviar'])) {
     $count = count($_POST["id"]);
@@ -17,10 +24,12 @@ if (isset($_POST['enviar'])) {
         $stmt = $db->prepare("UPDATE lecciones SET calification=:calificacion , comment = :comentario WHERE id = :id");
         $stmt->execute(array('calificacion' => $_POST['calification'][$i], 'comentario' => $_POST['comment'][$i], 'id' => $_POST['id'][$i]));
     }
+    $_SESSION['var'] = TRUE;
     header("Location: adminEstudiantes.php");
 }
 if (isset($_POST['curso'])) {
     $colegio = $_SESSION['school'];
+    $_SESSION['curso'] = $_POST['curso'];
     $curso = $_POST['curso'];
     $stmt = $db->prepare("SELECT * FROM lecciones WHERE school = :colegio AND rol = :rol AND course =:curso");
     $stmt->execute(array('colegio' => $colegio, 'rol' => "alumno", 'curso' => $curso));
@@ -83,7 +92,6 @@ if (isset($_POST['curso'])) {
             </div>
         </div>
     </form>
-    </br>
     </br>
     <body style ="background-color: #FFFFFF;">      
         <form method="post" action="adminEstudiantes.php">
