@@ -25,6 +25,7 @@ if (isset($_POST['submit'])) {
     $lastName = $_POST['lastName'];
     $school = $_POST['school'];
     $course = $_POST['course'];
+    $password = $_POST['password'];
     $rol = "alumno";
 
 
@@ -72,13 +73,13 @@ if (isset($_POST['submit'])) {
     if (!isset($error)) {
 
         //hash the password
-        $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
+         $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
 
         //Creamos el codigo de activacion
         $activasion = md5(uniqid(rand(), true));
 
         try {
-
+            echo 'hoeqwqweeqwa';
             //Insertar la informacion ingresada en el formulario de registro
             $stmt = $db->prepare('INSERT INTO usuarios (userName, name , lastName, password, email, school, course, rol, active) VALUES (:userName, :name, :lastName, :password, :email, :school, :course,:rol, :active)');
             $stmt->execute(array(
@@ -114,6 +115,7 @@ if (isset($_POST['submit'])) {
 
             //else catch the exception and show the error.
         } catch (PDOException $e) {
+            echo $password;
             $error[] = $e->getMessage();
         }
     }
@@ -151,7 +153,7 @@ $title = 'Login y registro PDO';
                 <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                     <form role="form" method="post" action="" autocomplete="off">
                         <h2>Por favor regístrese</h2>
-                        <p>¿Ya eres usuario? <a href='index.php'>Login</a></p>
+                        <p>¿Ya eres usuario? <a href='login.php'>Login</a></p>
                         <hr>
 
                         <?php

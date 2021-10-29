@@ -41,7 +41,7 @@ class User extends Password {
             $_SESSION['name'] = $row['name'];
             $_SESSION['lastName'] = $row['lastName'];
             $_SESSION['school'] = $row['school'];
-            $_SESSION['course'] = $row['codCourse'];
+            $_SESSION['course'] = $row['course'];
             $_SESSION['rol'] = $row['rol'];
             return true;
         }

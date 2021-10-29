@@ -1,158 +1,68 @@
 <?php
-require('classes/config.php');
+require_once('classes/config.php');
 
-//Verifica si el formulario ha sido enviado correctamente
 if (isset($_POST['submit'])) {
 
     if (!isset($_POST['userName']))
-        $error[] = "Por favor rellene el rut";
-    
-    if (!isset($_POST['name']))
-        $error[] = "Por favor rellene el nombre";
-    
-    if (!isset($_POST['lastName']))
-        $error[] = "Por favor rellene el appelido";
-    
-    if (!isset($_POST['email']))
-        $error[] = "Por favor rellene el Email";
-    
+        $error[] = "Por favor rellene el usuario";
     if (!isset($_POST['password']))
-        $error[] = "Por favor rellene todos los campos";
+        $error[] = "Por favor rellene la contraseña";
 
     $userName = $_POST['userName'];
-    $name = $_POST['name'];
-    $lastName = $_POST['lastName'];
-    $school = $_POST['school'];
-    $course = $_POST['course'];
-    $rol = "docente";
-    
-
-    //very basic validation
-    if (!$user->isValidUsername($userName)) {
-        $error[] = 'Los nombres de usuario deben tener al menos 3 caracteres alfanuméricos';
-    } else {
-        $stmt = $db->prepare('SELECT userName FROM usuarios WHERE userName = :userName');
-        $stmt->execute(array(':userName' => $userName));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!empty($row['userName'])) {
-            $error[] = 'El nombre de usuario proporcionado ya está en uso.';
+    if ($user->isValidUsername($userName)) {
+        if (!isset($_POST['password'])) {
+            $error[] = 'Se debe ingresar una contraseña';
         }
-    }
+        $password = $_POST['password'];
 
-    if (strlen($_POST['password']) < 3) {
-        $error[] = 'La contraseña es demasiado corta.';
-    }
-
-    if (strlen($_POST['passwordConfirm']) < 3) {
-        $error[] = 'Confirmar contraseña es demasiado corta.';
-    }
-
-    if ($_POST['password'] != $_POST['passwordConfirm']) {
-        $error[] = 'Las contraseñas no coinciden.';
-    }
-
-    //Validamos el correo electronico
-    $email = htmlspecialchars_decode($_POST['email'], ENT_QUOTES);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error[] = 'Por favor, introduce una dirección de correo electrónico válida';
-    } else {
-        $stmt = $db->prepare('SELECT email FROM usuarios WHERE email = :email');
-        $stmt->execute(array(':email' => $email));
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!empty($row['email'])) {
-            $error[] = 'Este correo ya esta en uso';
-        }
-    }
-
-
-    //Comprobamos que no exista error
-    if (!isset($error)) {
-
-        //hash the password
-        $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
-
-        //Creamos el codigo de activacion
-        $activasion = md5(uniqid(rand(), true));
-
-        try {
-
-            //Insertar la informacion ingresada en el formulario de registro
-            $stmt = $db->prepare('INSERT INTO usuarios (userName, name , lastName, password, email, school, course, rol, active) VALUES (:userName, :name, :lastName, :password, :email, :school, :course,:rol, :active)');
-            $stmt->execute(array(
-                ':userName' => $userName,
-                ':name' => $name,
-                ':lastName' => $lastName,
-                ':password' => $hashedpassword,
-                ':email' => $email,
-                ':school' => $school,
-                ':course' => $course,
-                ':rol' => $rol,
-                ':active' => $activasion
-            ));
-            //$id = $db->lastInsertId('memberID');
-            $id = $userName;
-            //send email
-            $to = $_POST['email'];
-            $subject = "Confirmación de registro";
-            $body = "<p>Gracias por registrarse en el sitio de demostración.</p>
-			<p>Para activar su cuenta, haga clic en este enlace: <a href='" . DIR . "activate.php?x=$id&y=$activasion'>" . DIR . "activate.php?x=$id&y=$activasion</a></p>
-			<p>Saludos al administrador del sitio</p>";
-
-            $mail = new Mail();
-            $mail->setFrom(SITEEMAIL);
-            $mail->addAddress($to);
-            $mail->subject($subject);
-            $mail->body($body);
-            $mail->send();
-
-            //redireccionamos al index
-            header('Location: index.php?action=joined');
+        if ($user->login($userName, $password)) {
+            header('Location: pages/unidadI/leccion1.php');
             exit;
-
-            //else catch the exception and show the error.
-        } catch (PDOException $e) {
-            $error[] = $e->getMessage();
+        } else {
+            $error[] = 'Nombre de usuario o contraseña incorrectos o su cuenta no ha sido activada.';
         }
+    } else {
+        $error[] = 'Los nombres de usuario deben ser alfanuméricos y tener entre 3 y 16 caracteres de longitud.';
     }
-}
-
-//definimos el titulo de la pagina
-$title = 'Login y registro PDO';
-
-//include header tema
-//require('layout/header.php');
+}//end if submit
+//define page title
+$title = 'Login';
 ?>
-<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="utf-8">
-        <title><?php
-            if (isset($title)) {
-                echo $title;
-            }
-            ?></title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style/main.css">
-        <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Plataforma practicas</title>    
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="js/scripts.js" type="text/javascript"></script>
         <link href="style/estilo_login.css" rel="stylesheet" type="text/css"/>
     </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                </br></br>
-                <div class="text-center">
-                    <img src="img/logo.png" class="img-fluid" width="300px" height="100px">
-                </div>
-                </br>
-                <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                    <form role="form" method="post" action="" autocomplete="off">
-                        <h2>Por favor regístrese</h2>
-                        <p>¿Ya eres usuario? <a href='index.php'>Login</a></p>
-                        <hr>
 
+    <body>
+
+        </br></br>
+
+        <div class="container">    
+
+            <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"> 
+
+                <div class="row">                
+                    <div class="text-center">
+                        <img src="img/logo.png" class="img-fluid" width="300px" height="100px">
+                    </div>
+                </div>
+                </br></br>
+                <div class="panel panel-default" >
+                    <div class="panel-heading">
+                        <div class="panel-title text-center">Ingreso a la Plataforma</div>
+                    </div>     
+
+                    <div class="panel-body" >
+                        <h4>INICIA SESIÓN</h4>
+                        <p><a href='registro.php'>Registrate</a></p>
+                        <hr>
                         <?php
                         //check for any errors
                         if (isset($error)) {
@@ -161,86 +71,63 @@ $title = 'Login y registro PDO';
                             }
                         }
 
-                        //if action is joined show sucess
-                        if (isset($_GET['action']) && $_GET['action'] == 'joined') {
-                            echo "<h4 class='bg-success'>Registro exitoso, por favor revise su correo electrónico para activar su cuenta.</h4>";
+                        if (isset($_GET['action'])) {
+
+                            //check the action
+                            switch ($_GET['action']) {
+                                case 'active':
+                                    echo "<h2 class='bg-success'>Su cuenta ya está activa, ahora puede iniciar sesión.</h2>";
+                                    break;
+                                case 'reset':
+                                    echo "<h2 class='bg-success'>Por favor revise su bandeja de entrada para un enlace de restablecimiento.</h2>";
+                                    break;
+                                case 'joined':
+                                    echo "<h2 class='bg-success'>Verifique su correo electrónico para activar su cuenta.</h2>";
+                                    break;
+                                case 'resetAccount':
+                                    echo "<h2 class='bg-success'>Contraseña cambiada, ahora puede iniciar sesión.</h2>";
+                                    break;
+                                case 'expired':
+                                    echo "<h2 class='bg-danger'>Tu sesión expiro, vuelve a ingresar.</h2>";
+                                    break;
+                            }
                         }
                         ?>
+                        <form name="form" id="form" class="form-horizontal" enctype="multipart/form-data" method="POST"  action="" >
 
-                        <div class="form-group">
-                            <input type="text" name="userName" id="userName" class="form-control input-lg" required oninput="checkRut(this)" placeholder="Rut" value="<?php
-                            if (isset($error)) {
-                                echo htmlspecialchars($_POST['userName'], ENT_QUOTES);
-                            }
-                            ?>" tabindex="1">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control input-lg" required  placeholder="Nombre" value="<?php
-                            if (isset($error)) {
-                                echo htmlspecialchars($_POST['name'], ENT_QUOTES);
-                            }
-                            ?>" tabindex="2">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="lastName" id="lastName" class="form-control input-lg" required  placeholder="Apellido" value="<?php
-                            if (isset($error)) {
-                                echo htmlspecialchars($_POST['lastName'], ENT_QUOTES);
-                            }
-                            ?>" tabindex="4">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" id="email" class="form-control input-lg" required placeholder="Correo" value="<?php
-                            if (isset($error)) {
-                                echo htmlspecialchars($_POST['email'], ENT_QUOTES);
-                            }
-                            ?>" tabindex="6">
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <select class="form-control input-lg" name ="school" id="colegio" tabindex="6" required>
-                                         <option value="">Colegio</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="user" type="text" class="form-control" name="userName" value="<?php
+                                if (isset($error)) {
+                                    echo htmlspecialchars($_POST['userName'], ENT_QUOTES);
+                                }
+                                ?>" placeholder="rut" required oninput="checkRut(this)">                                        
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" class="form-control" name="password" placeholder="Contraseña" required>
+                            </div>                                                                  
+                            <div class="row">
+                                <div class="col-xs-9 col-sm-9 col-md-9">
+                                    <a href='reset.php'>Recuperar contraseña</a>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    <select class="form-control input-lg" name = "course" id="course" tabindex="6" required>
-                                         <option value="">Curso</option>
-                                        <option value="A">4° A</option>
-                                        <option value="B">4° B</option>
-                                        <option value="C">4° C</option>
-                                        <option value="D">4° D</option>
-                                        <option value="MEDIO">4° MEDIO</option>
-                                    </select>
+                                <!-- Button -->
+                                <div class="col-sm-12 controls">
+                                    <button type="submit" name="submit" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-log-in"></i> Entrar</button>                          
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="3" required>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control input-lg" placeholder="Confirmar Password" tabindex="4" required>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-xs-6 col-md-6"><input type="submit" name="submit" value="Registrarme" class="btn btn-primary btn-block btn-lg" tabindex="5"></div>
-                        </div>
-                    </form>
-                </div>
+                        </form>     
+
+                    </div>                     
+                </div>  
             </div>
         </div>
+
+
 
         <div id="particles"></div>
 
@@ -489,11 +376,10 @@ $title = 'Login y registro PDO';
               c-0.049-0.366-0.046-0.739-0.025-1.11c0.009-0.125,0.024-0.25,0.042-0.375C12.122,17.814,12.141,17.732,12.164,17.65z"></path>
         </g>
         </svg>
-
-        <?php
-//include header template
-//require('layout/footer.php');
-        ?>
         <script src="js/scripts.js" type="text/javascript"></script>
     </body>
 </html>
+
+<?php
+ob_end_flush();
+?>
