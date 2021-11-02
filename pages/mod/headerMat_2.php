@@ -45,4 +45,5 @@
             <a class="btn btn-outline-secondary" href="../../login.php" role="button">Iniciar Sesión</a>
         </span>
     </div>
+    <a href="../../classes/salir.php?sal=si"></a>
 </nav>

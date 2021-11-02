@@ -38,6 +38,7 @@ if (isset($_POST['enviar'])) {
         <script src='https://kit.fontawesome.com/a076d05399.js'></script>
         <link href="../../pages/admin/css/estrellas.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/miestiloNavbar.css" rel="stylesheet" type="text/css"/>
+        <link href="../../style/estrellas.css" rel="stylesheet" type="text/css"/>
 
         <style>
             .bs-example{
@@ -80,18 +81,18 @@ if (isset($_POST['enviar'])) {
         </style>
     </head>
     <body style ="background-color: #FFFFFF;">
-    <?php
-    if ($_SESSION['rol'] == 'alumno') {
-        include '../mod/headerMat.php';
-    } elseif ($_SESSION['rol'] == 'docente') {
-        include '../mod/headerMat_1.php';
-    } else {
-        include '../mod/headerMat_2.php';
-    }
-    ?>
+        <?php
+        if ($_SESSION['rol'] == 'alumno') {
+            include '../mod/headerMat.php';
+        } elseif ($_SESSION['rol'] == 'docente') {
+            include '../mod/headerMat_1.php';
+        } else {
+            include '../mod/headerMat_2.php';
+        }
+        ?>
         <div class="container border p-0">
             <div class="card-header collapsed border border-light" data-toggle="collapse" data-parent="#accordion" href="#collapseCuatro"  style ="background-color: #0EB8F6;">
-                <a class="card-title"><img src="../../images/icono1_leccion1.png" class="img-fluid" width="70px" alt="70px"> LECCIÓN 05: <strong>Activación de Conocimientos Previos</strong></a>
+                <a class="card-title"><img src="../../img/icono1_leccion1.png" class="img-fluid" width="70px" alt="70px"> LECCIÓN 05: <strong>Activación de Conocimientos Previos</strong></a>
             </div>
         </div>
         <div class="container border p-0">
@@ -110,7 +111,7 @@ if (isset($_POST['enviar'])) {
                 <div class="card mb-0">
                     <!-- CONTENIDO -->
                     <div class="card-header collapsed border border-light" data-toggle="collapse" data-parent="#accordion" href="#collapseContenido"  style ="background-color: #0EB8F6;">
-                        <a class="card-title"><img src="../../../images/icono2_simulación.png" class="img-fluid" width="70px" alt="70px"> <strong>Conceptualización</strong> </a>
+                        <a class="card-title"><img src="../../img/icono2_simulacion.png" class="img-fluid" width="70px" alt="70px"> <strong>Conceptualización</strong> </a>
                     </div>
                     <div id="collapseContenido" class="collapse" data-parent="#accordion">
                         <div class="card-body">
@@ -125,7 +126,7 @@ if (isset($_POST['enviar'])) {
                     </div>
                     <!-- EJERCICIO Y EXPERIMENTCACIÓN-->
                     <div  class="card-header collapsed border border-light " data-toggle="collapse" data-parent="#accordion" href="#collapseUno"  style =" background-color: #0EB8F6; ">
-                        <a class="card-title"><img src="../../../images/3_actividad.png" class="img-fluid" width="70px" alt="70px">  <strong> Ejercicio y Experimentación</strong> </a>
+                        <a class="card-title"><img src="../../img/3_actividad.png" class="img-fluid" width="70px" alt="70px">  <strong> Ejercicio y Experimentación</strong> </a>
                     </div>                                            
                     <div id="collapseUno" class="collapse" data-parent="#accordion">
                         <div class="card-body">
@@ -165,7 +166,7 @@ if (isset($_POST['enviar'])) {
                     <!-- RESPONDE -->
 
                     <div class="card-header collapsed border border-light " data-toggle="collapse" data-parent="#accordion" href="#collapseTres"  style ="background-color: #0EB8F6;">
-                        <a class="card-title"><img src="../../../images/4_responde.png" class="img-fluid" width="70px" alt="70px">  <strong>¡Responde! &nbsp; </strong></a>
+                        <a class="card-title"><img src="../../img/4_responde.png" class="img-fluid" width="70px" alt="70px">  <strong>¡Responde! &nbsp; </strong></a>
                     </div>
                     <div id="collapseTres" class="collapse" data-parent="#accordion">
                         <div class="card-body"> 
@@ -202,7 +203,6 @@ if (isset($_POST['enviar'])) {
                                         <label for="exampleFormControlTextarea4"> ¿Cuántas estrellas le pondrías a esta lección ?</label>
                                         <!--<textarea class="form-control" id="exampleFormControlTextarea1" name="pregunta4" rows="3" required></textarea> -->
                                         </br>
-
                                         <div class="rating">
                                             <input type="radio" id="star5" name="pregunta5" value="5"  required /><label for="star5" title="Genial" value="5">5 estrellas</label>
                                             <input type="radio" id="star4" name="pregunta5" value="4" /><label for="star4" title="Bien" value="4">4 estrellas</label>
@@ -210,8 +210,9 @@ if (isset($_POST['enviar'])) {
                                             <input type="radio" id="star2" name="pregunta5" value="2" /><label for="star2" title="Mal" value="2">2 estrellas</label>
                                             <input type="radio" id="star1" name="pregunta5" value="1" /><label for="star1" title="Pésimo" value="1">1 estrellas</label>
                                         </div>
+                                        </br>
                                     </div>
-                                    </br>                                   
+                                    </br> </br>                                  
                                     <?php
                                     if ($_SESSION['userName'] != '') {
                                         echo ' <button type="submit" name ="enviar" value= "unidad2_leccion7" class="btn btn-outline-primary">Enviar</button>';

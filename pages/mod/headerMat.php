@@ -49,7 +49,7 @@
         </span>
         </br>
         <span class="navbar-text">
-            <a class="btn btn-outline-danger" href="../../login.php" role="button">Cerrar Sesión</a>
+            <a class="btn btn-outline-danger" href="../../classes/salir.php?sal=si" role="button">Cerrar Sesión</a>
         </span>
     </div>
 </nav>

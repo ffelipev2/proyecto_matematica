@@ -111,7 +111,7 @@ if (isset($_POST['enviar'])) {
                 <div class="card mb-0">
                     <!-- CONTENIDO -->
                     <div class="card-header collapsed border border-light" data-toggle="collapse" data-parent="#accordion" href="#collapseContenido"  style ="background-color: #0EB8F6;">
-                        <a class="card-title"><img src="../../img/icono2_simulación.png" class="img-fluid" width="70px" alt="70px"> <strong>Conceptualización</strong> </a>
+                        <a class="card-title"><img src="../../img/icono2_simulacion.png" class="img-fluid" width="70px" alt="70px"> <strong>Conceptualización</strong> </a>
                     </div>
                     <div id="collapseContenido" class="collapse" data-parent="#accordion">
                         <div class="card-body">
