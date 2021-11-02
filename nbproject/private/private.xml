@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/proyecto_matematicas/pages/unidadI/leccion1.php</file>
-            <file>file:/C:/xampp/htdocs/proyecto_matematicas/classes/password.php</file>
-            <file>file:/C:/xampp/htdocs/proyecto_matematicas/classes/user.php</file>
+            <file>file:/C:/xampp/htdocs/proyecto_matematicas/pages/admin/adminEstudiantes.php</file>
             <file>file:/C:/xampp/htdocs/proyecto_matematicas/index.html</file>
-            <file>file:/C:/xampp/htdocs/proyecto_matematicas/login.php</file>
-            <file>file:/C:/xampp/htdocs/proyecto_matematicas/classes/config.php</file>
+            <file>file:/C:/xampp/htdocs/proyecto_matematicas/pages/mod/headerMat.php</file>
+            <file>file:/C:/xampp/htdocs/proyecto_matematicas/pages/mod/headerMat_1.php</file>
+            <file>file:/C:/xampp/htdocs/proyecto_matematicas/registro.php</file>
         </group>
     </open-files>
 </project-private>
