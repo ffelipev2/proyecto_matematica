@@ -64,10 +64,11 @@ if (isset($_POST['curso'])) {
     </head>
     <?php
     if ($_SESSION['rol'] == 'alumno') {
-        include '../mod/headerMat.html';
-    }
-    if ($_SESSION['rol'] == 'docente') {
-        include '../mod/headerMat_1.html';
+        include '../mod/headerMat.php';
+    } elseif ($_SESSION['rol'] == 'docente') {
+        include '../mod/headerMat_1.php';
+    } else {
+        include '../mod/headerMat_2.php';
     }
     ?>
     <div class="card text-center">
