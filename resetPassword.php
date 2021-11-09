@@ -43,9 +43,9 @@ if (isset($_POST['submit'])) {
 
     //if no errors have been created carry on
     if (!isset($error)) {
-
+        $password = $_POST['password'];
         //hash the password
-        $hashedpassword = $user->password_hash($_POST['password'], PASSWORD_BCRYPT);
+        $hashedpassword = password_hash($password, PASSWORD_DEFAULT);
 
         try {
 
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
             ));
 
             //redirect to index page
-            header('Location: index.php?action=resetAccount');
+            header('Location: login.php?action=resetAccount');
             exit;
 
             //else catch the exception and show the error.
